@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/base": "^5.0.0-beta.40",
     "@reduxjs/toolkit": "^2.2.2",
     "@stylexjs/stylex": "^0.5.1",

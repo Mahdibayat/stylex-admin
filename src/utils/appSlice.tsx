@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  navSlide: true,
+  navSlide: false,
 };
 
 const appSlice = createSlice({

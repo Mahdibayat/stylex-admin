@@ -4,6 +4,10 @@ import { useAppDispatch, useAppSelector } from '../utils/reduxHook';
 import { toggleNav } from '../utils/appSlice';
 import { COLORS, GLOBAL, SIZES } from '../tokens.stylex';
 import { Outlet } from 'react-router-dom';
+import ChangeThemeColor from './ui/changeThemeColor';
+import ProfileHeader from './user/profileHeader';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 export default function MainLayout() {
   const { navSlide } = useAppSelector((state) => state.app);
@@ -24,11 +28,15 @@ export default function MainLayout() {
             {...stylex.props(mobileStyle.mobileMenuBtn)}
             onClick={() => dispatch(toggleNav())}
           >
-            <img
+            {/* <img
               src={'/assets/menu.svg'}
               alt='menuBar'
               width={25}
               height={25}
+            /> */}
+            <FontAwesomeIcon
+              icon={faBars}
+              style={{ fontSize: '20px' }}
             />
           </button>
         </div>
@@ -44,6 +52,12 @@ export default function MainLayout() {
         </div>
 
         <MainSearch />
+
+        <div {...stylex.props(containers.rightActionsContainer)}>
+          <ChangeThemeColor />
+
+          <ProfileHeader />
+        </div>
       </div>
 
       <div
@@ -167,6 +181,11 @@ const containers = stylex.create({
     height: '65px',
     padding: '0 1rem',
   },
+  rightActionsContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+  },
 });
 
 const styles = stylex.create({
@@ -185,6 +204,10 @@ const styles = stylex.create({
     width: '27px',
   },
   logoName: {
+    display: {
+      default: 'block',
+      [MOBILE]: 'none',
+    },
     fontSize: SIZES.subTitle,
     fontWeight: '600',
   },
@@ -241,13 +264,18 @@ const mobileStyle = stylex.create({
     padding: '5px',
     paddingTop: '10px',
     borderRadius: '50%',
+    backgroundColor: COLORS.bg,
   },
   mobileMenuBtn: {
     background: 'none',
     border: 'none',
+    width: 25,
+    height: 25,
     p: '2px',
+    color: COLORS.text,
   },
+  menuIcon: {},
   menuButtonActive: {
-    backgroundColor: COLORS.spacer,
+    backgroundColor: COLORS.primary,
   },
 });

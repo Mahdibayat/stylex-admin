@@ -4,7 +4,7 @@ const DARK = '@media (prefers-color-scheme: dark)';
 const MOBILE = '@media (max-width: 700px)';
 
 export const COLORS = stylex.defineVars({
-  primary: { default: '#3874ff', [DARK]: '#3874ff' },
+  primary: { default: '#d07c3f', [DARK]: '#f5a267' },
   primaryText: { default: '#3874ff', [DARK]: '#85a9ff' },
   text: { default: '#141824', [DARK]: '#e3e6ed' },
   textGray: { default: '#525b75', [DARK]: '#8a94ad' },
