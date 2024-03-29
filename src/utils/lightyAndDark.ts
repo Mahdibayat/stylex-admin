@@ -5,6 +5,8 @@ import { COLORS } from '../tokens.stylex';
 
 const darkColors = {
   primary: '#f5a267',
+  primaryLight: '#ffc49a',
+  primaryDark: '#ae744a',
   primaryText: '#85a9ff',
   text: '#e3e6ed',
   textGray: '#8a94ad',
@@ -13,7 +15,9 @@ const darkColors = {
   spacer: '#31374a',
 };
 const lightColors = {
-  primary: '#d07c3f',
+  primary: '#f5a267',
+  primaryLight: '#ffc49a',
+  primaryDark: '#ae744a',
   primaryText: '#3874ff',
   text: '#141824',
   textGray: '#525b75',
@@ -30,6 +34,14 @@ export const auto = createTheme(COLORS, {
   primary: {
     default: lightColors.primary,
     [DARK]: darkColors.primary,
+  },
+  primaryLight: {
+    default: lightColors.primaryLight,
+    [DARK]: darkColors.primaryLight,
+  },
+  primaryDark: {
+    default: lightColors.primaryDark,
+    [DARK]: darkColors.primaryDark,
   },
   primaryText: {
     default: lightColors.primaryText,

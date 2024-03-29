@@ -4,6 +4,8 @@ const MOBILE = '@media (max-width: 700px)';
 
 export const COLORS = stylex.defineVars({
   primary: 'black',
+  primaryLight: 'black',
+  primaryDark: 'black',
   primaryText: 'black',
   text: 'black',
   textGray: 'black',
