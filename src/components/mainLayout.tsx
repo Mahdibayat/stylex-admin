@@ -1,31 +1,38 @@
+import {
+  faBars,
+  faDownLeftAndUpRightToCenter,
+  faUpRightAndDownLeftFromCenter,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as stylex from '@stylexjs/stylex';
-import MainSearch from './mainSearch';
-import { useAppDispatch, useAppSelector } from '../utils/reduxHook';
-import { toggleNav } from '../utils/appSlice';
-import { COLORS, GLOBAL, SIZES } from '../tokens.stylex';
 import { Outlet } from 'react-router-dom';
+import { COLORS, SIZES } from '../tokens.stylex';
+import { toggleNav } from '../utils/appSlice';
+import { useAppDispatch, useAppSelector } from '../utils/reduxHook';
+import MainSearch from './mainSearch';
 import ChangeThemeColor from './ui/changeThemeColor';
 import ProfileHeader from './user/profileHeader';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { useTheme } from '../utils/hooks/useTheme';
 
 export default function MainLayout() {
   const { navSlide } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
+  const theme = useTheme();
 
   return (
-    <div {...stylex.props(containers.container)}>
+    <div {...stylex.props(theme, containers.container)}>
       {/* HEADER */}
-      <div {...stylex.props(containers.headerContainer)}>
+      <div {...stylex.props(theme, containers.headerContainer)}>
         <div
           {...stylex.props(
+            theme,
             styles.hoverGray,
             mobileStyle.mobileMenu,
             navSlide && mobileStyle.menuButtonActive
           )}
         >
           <button
-            {...stylex.props(mobileStyle.mobileMenuBtn)}
+            {...stylex.props(theme, mobileStyle.mobileMenuBtn)}
             onClick={() => dispatch(toggleNav())}
           >
             {/* <img
@@ -42,18 +49,18 @@ export default function MainLayout() {
         </div>
 
         {/* LOGO */}
-        <div {...stylex.props(styles.logoContainer)}>
+        <div {...stylex.props(theme, styles.logoContainer)}>
           <img
             src={'/assets/logo.png'}
             alt='logo'
-            {...stylex.props(styles.logoImage)}
+            {...stylex.props(theme, styles.logoImage)}
           />
-          <span {...stylex.props(styles.logoName)}>phoenix</span>
+          <span {...stylex.props(theme, styles.logoName)}>phoenix</span>
         </div>
 
         <MainSearch />
 
-        <div {...stylex.props(containers.rightActionsContainer)}>
+        <div {...stylex.props(theme, containers.rightActionsContainer)}>
           <ChangeThemeColor />
 
           <ProfileHeader />
@@ -62,40 +69,40 @@ export default function MainLayout() {
 
       <div
         {...stylex.props(
+          theme,
           containers.mainContainer,
           navSlide && styles.closeSideBar
         )}
       >
         {/* SIDE BAR */}
-        <div {...stylex.props(containers.sideBarContainer)}>
+        <div {...stylex.props(theme, containers.sideBarContainer)}>
           <h3>side </h3>
           <h3>side bar</h3>
           <h3>side </h3>
           <h3>side bar</h3>
 
-          <div {...stylex.props(styles.collapseArea)}>
+          <div {...stylex.props(theme, styles.collapseArea)}>
             <button
               onClick={() => {
                 dispatch(toggleNav());
               }}
-              {...stylex.props(
-                styles.toggleNavSlideBtn,
-                !navSlide && styles.toggleNavImgReverse
-              )}
+              {...stylex.props(theme, styles.toggleNavSlideBtn)}
             >
-              <img
-                src='/assets/open.svg'
-                alt='logo'
-                {...stylex.props(styles.cursorPointer, styles.toggleNavImg)}
+              <FontAwesomeIcon
+                icon={
+                  navSlide
+                    ? faUpRightAndDownLeftFromCenter
+                    : faDownLeftAndUpRightToCenter
+                }
+                style={{ fontSize: navSlide ? '1.5rem' : '1.3rem' }}
               />
             </button>
-
             {!navSlide && (
               <span
                 onClick={() => {
                   dispatch(toggleNav());
                 }}
-                {...stylex.props(styles.cursorPointer)}
+                {...stylex.props(theme, styles.cursorPointer)}
               >
                 Collapsed View
               </span>
@@ -104,16 +111,16 @@ export default function MainLayout() {
         </div>
 
         {/* outlet footer */}
-        <div {...stylex.props(containers.outletContainer)}>
+        <div {...stylex.props(theme, containers.outletContainer)}>
           <Outlet />
 
           {/* FOOTER */}
-          <div {...stylex.props(containers.footerContainer)}>
+          <div {...stylex.props(theme, containers.footerContainer)}>
             <p>
               made with ❤ by{' '}
               <a
                 href='mailto:mahdibayat72@hotmail.com'
-                {...stylex.props(styles.footerLink)}
+                {...stylex.props(theme, styles.footerLink)}
               >
                 Mahdi Bayat
               </a>
@@ -142,7 +149,7 @@ const containers = stylex.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: COLORS.paper,
-    borderBottom: GLOBAL.border,
+    borderBottom: `1px solid ${COLORS.spacer}`,
     padding: '.5rem 1.5rem',
   },
   mainContainer: {
@@ -157,7 +164,7 @@ const containers = stylex.create({
   sideBarContainer: {
     position: 'relative',
     backgroundColor: COLORS.paper,
-    borderRight: GLOBAL.border,
+    borderRight: `1px solid ${COLORS.spacer}`,
     height: '100%',
     overflowY: 'auto',
     overflowX: 'hidden',
@@ -177,7 +184,7 @@ const containers = stylex.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: COLORS.paper,
-    borderTop: GLOBAL.border,
+    borderTop: `1px solid ${COLORS.spacer}`,
     height: '65px',
     padding: '0 1rem',
   },
@@ -191,7 +198,7 @@ const containers = stylex.create({
 const styles = stylex.create({
   closeSideBar: {
     gridTemplateColumns: {
-      default: '80px 1fr',
+      default: '60px 1fr',
       [MOBILE]: '1fr 0',
     },
   },
@@ -216,7 +223,7 @@ const styles = stylex.create({
     bottom: 0,
     left: 0,
     right: 0,
-    borderTop: GLOBAL.border,
+    borderTop: `1px solid ${COLORS.spacer}`,
     width: '100%',
     height: '65px',
     display: 'flex',
@@ -228,13 +235,10 @@ const styles = stylex.create({
     color: COLORS.primary,
   },
   toggleNavSlideBtn: {
-    width: '30px',
-    height: '30px',
     background: 'none',
     border: 'none',
     transition: 'all 200ms',
     display: 'flex',
-    gap: '5px',
     color: COLORS.text,
     fontSize: SIZES.caption,
   },
@@ -242,9 +246,6 @@ const styles = stylex.create({
     width: '30px',
     height: '30px',
     objectFit: 'contain',
-  },
-  toggleNavImgReverse: {
-    transform: 'scaleX(-1)',
   },
   hoverGray: {
     color: { default: COLORS.text, ':hover': COLORS.textGray },

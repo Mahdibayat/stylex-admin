@@ -1,11 +1,13 @@
 import * as stylex from '@stylexjs/stylex';
 import { COLORS, GLOBAL } from '../tokens.stylex';
+import { useTheme } from '../utils/hooks/useTheme';
 
 export default function DashboardPage() {
+  const theme = useTheme();
   return (
-    <div {...stylex.props(styles.base)}>
+    <div {...stylex.props(theme, styles.base)}>
       <h3>Dashboard</h3>
-      <p {...stylex.props(styles.textGray)}>long page</p>
+      <p {...stylex.props(theme, styles.textGray)}>long page</p>
     </div>
   );
 }

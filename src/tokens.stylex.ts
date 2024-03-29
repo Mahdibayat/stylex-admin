@@ -1,16 +1,15 @@
 import stylex from '@stylexjs/stylex';
 
-const DARK = '@media (prefers-color-scheme: dark)';
 const MOBILE = '@media (max-width: 700px)';
 
 export const COLORS = stylex.defineVars({
-  primary: { default: '#d07c3f', [DARK]: '#f5a267' },
-  primaryText: { default: '#3874ff', [DARK]: '#85a9ff' },
-  text: { default: '#141824', [DARK]: '#e3e6ed' },
-  textGray: { default: '#525b75', [DARK]: '#8a94ad' },
-  bg: { default: '#f5f7fa', [DARK]: '#0f111a' },
-  paper: { default: '#fff', [DARK]: '#141824' },
-  spacer: { default: '#cbd0dd', [DARK]: '#31374a' },
+  primary: 'black',
+  primaryText: 'black',
+  text: 'black',
+  textGray: 'black',
+  bg: 'black',
+  paper: 'black',
+  spacer: 'black',
 });
 
 export const SIZES = stylex.defineVars({
@@ -20,8 +19,9 @@ export const SIZES = stylex.defineVars({
   caption: { default: '12px', [MOBILE]: '10px' },
 });
 
+// cant define global variable with color
+//  color change on client
 export const GLOBAL = stylex.defineVars({
-  border: `1px solid ${COLORS.spacer}`,
   radius: '.375rem',
   pagesPadding: { default: '1rem 1.5rem', [MOBILE]: '1rem' },
   font: '"Nunito Sans", sans-serif',

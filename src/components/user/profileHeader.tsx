@@ -4,9 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { Popper } from '@mui/base/Popper';
 import { COLORS, GLOBAL } from '../../tokens.stylex';
+import { useTheme } from '../../utils/hooks/useTheme';
 
 export default function ProfileHeader() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const theme = useTheme();
 
   const handleClick = (event: any) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -20,7 +22,11 @@ export default function ProfileHeader() {
       <button
         type='button'
         onClick={handleClick}
-        {...stylex.props(styles.triggerBtn, open && styles.triggerActive)}
+        {...stylex.props(
+          theme,
+          styles.triggerBtn,
+          open && styles.triggerActive
+        )}
       >
         <FontAwesomeIcon
           icon={faUserTie}
@@ -34,10 +40,10 @@ export default function ProfileHeader() {
         anchorEl={anchorEl}
         placement='bottom-end'
       >
-        <div {...stylex.props(styles.popperContainer)}>
+        <div {...stylex.props(theme, styles.popperContainer)}>
           <FontAwesomeIcon
             icon={faUserTie}
-            {...stylex.props(styles.iconBig)}
+            {...stylex.props(theme, styles.iconBig)}
           />
           <span>Jerry Seinfield</span>
 
@@ -45,7 +51,7 @@ export default function ProfileHeader() {
           <hr />
           <br />
 
-          <button {...stylex.props(styles.logoutBtn)}>
+          <button {...stylex.props(theme, styles.logoutBtn)}>
             {/* <FontAwesomeIcon icon={falogou} /> */}
             sign out
           </button>
@@ -69,7 +75,7 @@ const styles = stylex.create({
   },
   popperContainer: {
     backgroundColor: COLORS.bg,
-    border: GLOBAL.border,
+    border: `1px solid ${COLORS.spacer}`,
     borderRadius: GLOBAL.radius,
     display: 'flex',
     flexDirection: 'column',
@@ -89,7 +95,7 @@ const styles = stylex.create({
     height: 30,
     marginTop: 100,
     color: COLORS.text,
-    border: GLOBAL.border,
+    border: `1px solid ${COLORS.spacer}`,
     borderRadius: GLOBAL.radius,
     cursor: 'pointer',
     borderColor: {
