@@ -60,6 +60,11 @@ export default function Input(props: IInput) {
         onFocus={() => title('up')}
         onBlur={handleBlur}
         ref={inputRef}
+        onAnimationStart={(e: any) => {
+          if (e.animationName === 'onAutoFillStart') {
+            title('up');
+          }
+        }}
       />
     </div>
   );
@@ -83,6 +88,10 @@ const styles = stylex.create({
       ':focus': `2px solid ${COLORS.primary}`,
     },
     padding: '.5rem 1rem',
+    ':-webkit-autofill': {
+      animationName: 'onAutoFillStart',
+      transition: 'background-color 50000s ease-in-out 0s',
+    },
   },
   block: {
     width: '100%',
@@ -97,5 +106,6 @@ const styles = stylex.create({
     fontSize: '1.2rem',
     top: '50%',
     transform: 'translateY(-50%)',
+    pointerEvents: 'none',
   },
 });

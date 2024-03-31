@@ -13,7 +13,10 @@ export default function DashboardPage() {
       <br />
       <Button variant='primary'>text btn</Button>
       <br />
-      <Input title='search' />
+      <Input
+        title='search'
+        type='password'
+      />
     </div>
   );
 }
