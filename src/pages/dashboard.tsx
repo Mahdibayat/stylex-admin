@@ -3,6 +3,7 @@ import { COLORS, GLOBAL } from '../tokens.stylex';
 import { useTheme } from '../utils/hooks/useTheme';
 import Button from '../components/ui/button';
 import Input from '../components/ui/input';
+import Tooltip from '../components/ui/tooltip';
 
 export default function DashboardPage() {
   const theme = useTheme();
@@ -17,6 +18,13 @@ export default function DashboardPage() {
         title='search'
         type='password'
       />
+      <br />
+      <Tooltip
+        body={<h3>hi tooltip</h3>}
+        placement='top'
+      >
+        <h1>TOOL TIP</h1>
+      </Tooltip>
     </div>
   );
 }

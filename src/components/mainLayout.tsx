@@ -10,17 +10,25 @@ import { COLORS, SIZES } from '../tokens.stylex';
 import { toggleNav } from '../utils/appSlice';
 import { useAppDispatch, useAppSelector } from '../utils/reduxHook';
 import MainSearch from './mainSearch';
-import ChangeThemeColor from './ui/changeThemeColor';
+import ChangeThemeColor from './common/changeThemeColor';
 import ProfileHeader from './user/profileHeader';
 import { useTheme } from '../utils/hooks/useTheme';
+import ChangeAppDirection from './common/changeAppDirection';
+import Button from './ui/button';
 
 export default function MainLayout() {
-  const { navSlide } = useAppSelector((state) => state.app);
+  const { navSlide, direction } = useAppSelector((state) => state.app);
   const dispatch = useAppDispatch();
   const theme = useTheme();
 
   return (
-    <div {...stylex.props(theme, containers.container)}>
+    <div
+      {...stylex.props(
+        theme,
+        containers.container,
+        !!direction && direction === 'rtl' && styles.rtl
+      )}
+    >
       {/* HEADER */}
       <div {...stylex.props(theme, containers.headerContainer)}>
         <div
@@ -31,7 +39,8 @@ export default function MainLayout() {
             navSlide && mobileStyle.menuButtonActive
           )}
         >
-          <button
+          <Button
+            iconButton
             {...stylex.props(theme, mobileStyle.mobileMenuBtn)}
             onClick={() => dispatch(toggleNav())}
           >
@@ -45,7 +54,7 @@ export default function MainLayout() {
               icon={faBars}
               style={{ fontSize: '20px' }}
             />
-          </button>
+          </Button>
         </div>
 
         {/* LOGO */}
@@ -64,6 +73,8 @@ export default function MainLayout() {
           <ChangeThemeColor />
 
           <ProfileHeader />
+
+          <ChangeAppDirection />
         </div>
       </div>
 
@@ -82,7 +93,7 @@ export default function MainLayout() {
           <h3>side bar</h3>
 
           <div {...stylex.props(theme, styles.collapseArea)}>
-            <button
+            <Button
               onClick={() => {
                 dispatch(toggleNav());
               }}
@@ -96,7 +107,7 @@ export default function MainLayout() {
                 }
                 style={{ fontSize: navSlide ? '1.5rem' : '1.3rem' }}
               />
-            </button>
+            </Button>
             {!navSlide && (
               <span
                 onClick={() => {
@@ -165,6 +176,7 @@ const containers = stylex.create({
     position: 'relative',
     backgroundColor: COLORS.paper,
     borderRight: `1px solid ${COLORS.spacer}`,
+    borderLeft: `1px solid ${COLORS.spacer}`,
     height: '100%',
     overflowY: 'auto',
     overflowX: 'hidden',
@@ -196,6 +208,9 @@ const containers = stylex.create({
 });
 
 const styles = stylex.create({
+  rtl: {
+    direction: 'rtl',
+  },
   closeSideBar: {
     gridTemplateColumns: {
       default: '60px 1fr',

@@ -7,11 +7,19 @@ export const COLORS = stylex.defineVars({
   primaryLight: 'black',
   primaryDark: 'black',
   primaryText: 'black',
+  secondary: 'black',
+  secondaryLight: 'black',
+  secondaryDark: 'black',
+  secondaryText: 'black',
   text: 'black',
   textGray: 'black',
   bg: 'black',
   paper: 'black',
   spacer: 'black',
+  error: 'black',
+  success: 'black',
+  warning: 'black',
+  info: 'black',
 });
 
 export const SIZES = stylex.defineVars({

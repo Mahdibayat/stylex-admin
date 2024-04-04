@@ -5,6 +5,8 @@ import { COLORS, GLOBAL } from '../../tokens.stylex';
 interface IButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
   variant?: 'primary' | 'secondary';
+  iconButton?: boolean;
+  fullWidth?: boolean;
 }
 
 export default function Button(props: IButton) {
@@ -15,8 +17,10 @@ export default function Button(props: IButton) {
       {...stylex.props(
         theme,
         styles.base,
+        props.iconButton && styles.iconButton,
         props.variant === 'primary' && styles.primary,
-        props.variant === 'secondary' && styles.secondary
+        props.variant === 'secondary' && styles.secondary,
+        props.fullWidth && styles.fullWidth
       )}
     >
       {props.children}
@@ -48,6 +52,15 @@ const styles = stylex.create({
       [DARK]: COLORS.paper,
     },
   },
+  iconButton: {
+    borderRadius: '50%',
+    minWidth: 'unset',
+    width: 35,
+    height: 35,
+    color: COLORS.text,
+    backgroundColor: COLORS.bg,
+    border: 'unset',
+  },
   secondary: {
     backgroundColor: COLORS.spacer,
     color: {
@@ -66,5 +79,8 @@ const styles = stylex.create({
         [DARK]: 'dimgray',
       },
     },
+  },
+  fullWidth: {
+    width: '100%',
   },
 });

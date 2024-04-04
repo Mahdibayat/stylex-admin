@@ -5,6 +5,7 @@ import { faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { Popper } from '@mui/base/Popper';
 import { COLORS, GLOBAL } from '../../tokens.stylex';
 import { useTheme } from '../../utils/hooks/useTheme';
+import Button from '../ui/button';
 
 export default function ProfileHeader() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -19,20 +20,17 @@ export default function ProfileHeader() {
 
   return (
     <>
-      <button
+      <Button
+        iconButton
         type='button'
         onClick={handleClick}
-        {...stylex.props(
-          theme,
-          styles.triggerBtn,
-          open && styles.triggerActive
-        )}
+        {...stylex.props(theme, open && styles.triggerActive)}
       >
         <FontAwesomeIcon
           icon={faUserTie}
           style={{ fontSize: '20px' }}
         />
-      </button>
+      </Button>
 
       <Popper
         id={id}
@@ -51,10 +49,13 @@ export default function ProfileHeader() {
           <hr />
           <br />
 
-          <button {...stylex.props(theme, styles.logoutBtn)}>
+          <Button
+            fullWidth
+            {...stylex.props(theme, styles.logoutBtn)}
+          >
             {/* <FontAwesomeIcon icon={falogou} /> */}
             sign out
-          </button>
+          </Button>
         </div>
       </Popper>
     </>
@@ -62,14 +63,6 @@ export default function ProfileHeader() {
 }
 
 const styles = stylex.create({
-  triggerBtn: {
-    borderRadius: '50%',
-    width: 35,
-    height: 35,
-    color: COLORS.text,
-    backgroundColor: COLORS.bg,
-    border: 'unset',
-  },
   triggerActive: {
     backgroundColor: COLORS.primary,
   },

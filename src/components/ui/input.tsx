@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import * as stylex from '@stylexjs/stylex';
 import { COLORS } from '../../tokens.stylex';
 import gsap from 'gsap';
+import { useTheme } from '../../utils/hooks/useTheme';
+import { useAppSelector } from '../../utils/reduxHook';
 
 interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
   black?: boolean;
@@ -12,12 +14,14 @@ interface IInput extends React.InputHTMLAttributes<HTMLInputElement> {
 export default function Input(props: IInput) {
   const titleRef = useRef<any>();
   const inputRef = useRef<any>();
+  const theme = useTheme();
+  const direction = useAppSelector((state) => state.app.direction);
 
   function title(kind: 'up' | 'down') {
     if (kind === 'up') {
       gsap.to(titleRef.current, {
         y: -20,
-        x: -10,
+        x: direction === 'rtl' ? 10 : -10,
         scale: 0.8,
         duration: 0.3,
         opacity: 0.7,
@@ -47,20 +51,25 @@ export default function Input(props: IInput) {
   }, [props.value, inputRef]);
 
   return (
-    <div {...stylex.props(styles.container)}>
+    <div {...stylex.props(theme, styles.container)}>
       <span
         ref={titleRef}
-        {...stylex.props(styles.title)}
+        {...stylex.props(
+          theme,
+          styles.title,
+          direction === 'rtl' && styles.titleRtl
+        )}
       >
         {props.title}
       </span>
       <input
         {...props}
-        {...stylex.props(styles.base)}
+        {...stylex.props(theme, styles.base)}
         onFocus={() => title('up')}
         onBlur={handleBlur}
         ref={inputRef}
-        onAnimationStart={(e: any) => {
+        onAnimationStart={(e) => {
+          // WHEN AUTO FILL TITLE UP TO
           if (e.animationName === 'onAutoFillStart') {
             title('up');
           }
@@ -92,6 +101,9 @@ const styles = stylex.create({
       animationName: 'onAutoFillStart',
       transition: 'background-color 50000s ease-in-out 0s',
     },
+    ':invalid': {
+      color: COLORS.error,
+    },
   },
   block: {
     width: '100%',
@@ -107,5 +119,9 @@ const styles = stylex.create({
     top: '50%',
     transform: 'translateY(-50%)',
     pointerEvents: 'none',
+  },
+  titleRtl: {
+    left: 'unset',
+    right: '1rem',
   },
 });

@@ -1,18 +1,15 @@
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as stylex from '@stylexjs/stylex';
-import { useDispatch } from 'react-redux';
-import { COLORS } from '../../tokens.stylex';
-import { changeTheme } from '../../utils/appSlice';
-import { useTheme } from '../../utils/hooks/useTheme';
-import { useAppSelector } from '../../utils/reduxHook';
 import { gsap } from 'gsap';
 import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { changeTheme } from '../../utils/appSlice';
+import { useAppSelector } from '../../utils/reduxHook';
+import Button from '../ui/button';
 
 export default function ChangeThemeColor() {
   const dispatch = useDispatch();
   const rTheme = useAppSelector((state) => state.app.rTheme);
-  const theme = useTheme();
   const iconRef = useRef<any>();
 
   function fadeShowPales() {
@@ -26,8 +23,8 @@ export default function ChangeThemeColor() {
   }
 
   return (
-    <button
-      {...stylex.props(theme, styles.base)}
+    <Button
+      iconButton
       onClick={() => {
         fadeShowPales();
         const theme = localStorage.getItem('theme');
@@ -41,17 +38,6 @@ export default function ChangeThemeColor() {
         style={{ fontSize: '20px' }}
         ref={iconRef}
       />
-    </button>
+    </Button>
   );
 }
-
-const styles = stylex.create({
-  base: {
-    color: COLORS.text,
-    width: '35px',
-    height: '35px',
-    borderRadius: '50%',
-    border: 'unset',
-    backgroundColor: COLORS.bg,
-  },
-});
