@@ -17,7 +17,6 @@ export default function Tooltip({ body, children, placement }: ITooltip) {
   function mouseOver() {
     gsap.to(ref.current, {
       opacity: 1,
-      delay: 1,
     });
   }
   function mouseLeave() {

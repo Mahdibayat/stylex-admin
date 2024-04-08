@@ -4,9 +4,16 @@ import { useTheme } from '../utils/hooks/useTheme';
 import Button from '../components/ui/button';
 import Input from '../components/ui/input';
 import Tooltip from '../components/ui/tooltip';
+import Select from '../components/ui/select';
+import { useState } from 'react';
 
 export default function DashboardPage() {
   const theme = useTheme();
+
+  const [select, setSelect] = useState<string | number>('');
+
+  console.log({ select });
+
   return (
     <div {...stylex.props(theme, styles.base)}>
       <h3>Dashboard</h3>
@@ -25,6 +32,23 @@ export default function DashboardPage() {
       >
         <h1>TOOL TIP</h1>
       </Tooltip>
+
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <Select
+        data={[
+          { title: 'اولین عنوان', value: 1 },
+          { title: 'عنوان دوم اینجاست', value: 2 },
+          { title: 'این است سلکت ملی', value: 3 },
+          { title: 'و اما تو', value: 4 },
+        ]}
+        onChange={setSelect}
+        value={select}
+        title='my custom select'
+      />
     </div>
   );
 }
