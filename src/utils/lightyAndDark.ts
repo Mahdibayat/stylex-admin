@@ -14,7 +14,7 @@ const lightColors = {
   secondaryText: '#141824',
   text: '#141824',
   textGray: '#525b75',
-  bg: '#f5f7fa',
+  bg: '#ececee',
   paper: '#fff',
   spacer: '#cbd0dd',
   error: '#f44336',
